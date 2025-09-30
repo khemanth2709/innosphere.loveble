@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnoSphere - AI-Powered Innovation Accelerator</title>
+    <meta name="description" content="Transform hackathon ideas into reality with AI-powered idea generation, real-time collaboration, and gamified innovation tracking.">
+    <meta name="author" content="InnoSphere">
+
+    <meta property="og:title" content="InnoSphere - AI-Powered Innovation Accelerator">
+    <meta property="og:description" content="Transform hackathon ideas into reality with AI-powered idea generation, real-time collaboration, and gamified innovation tracking.">
+    <meta property="og:type" content="website">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #6b7280;
+            --gray-light: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #0da271;
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--gray-light);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Demo Section */
+        .demo {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .demo-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .demo-content p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .demo-features {
+            list-style: none;
+        }
+
+        .demo-features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .demo-features li::before {
+            content: "✓";
+            background: var(--secondary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .demo-interface {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-light);
+        }
+
+        .chat-container {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            border: 1px solid var(--gray-light);
+            border-top: none;
+            border-bottom: none;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .message.ai {
+            background: var(--light);
+            border: 1px solid var(--gray-light);
+            margin-right: auto;
+        }
+
+        .message.user {
+            background: var(--primary);
+            color: white;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 0 0 8px 8px;
+            background: white;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            margin-right: 0.5rem;
+        }
+
+        .chat-input button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Gamification Section */
+        .gamification {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .leaderboard {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .leaderboard-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .leaderboard-header h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .leaderboard-list {
+            list-style: none;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--gray-light);
+        }
+
+        .rank {
+            font-weight: 700;
+            color: var(--primary);
+            min-width: 30px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .user-score {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .points {
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .demo-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <div class="logo-icon">I</div>
+                InnoSphere
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#demo">How It Works</a></li>
+                <li><a href="#gamification">Leaderboard</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn btn-outline">Sign In</button>
+                <button class="btn btn-primary">Get Started</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="fade-in-up">Transform Hackathon Ideas Into Reality</h1>
+            <p class="fade-in-up">Accelerate innovation with AI-powered idea generation, real-time collaboration, and gamified progress tracking.</p>
+            <div class="hero-buttons fade-in-up">
+                <button class="btn hero-btn btn-primary">Start Innovating</button>
+                <button class="btn hero-btn btn-secondary">Watch Demo</button>
+            </div>
+            <div class="fade-in-up" style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 12px; backdrop-filter: blur(10px); max-width: 800px; margin: 0 auto;">
+                <h3 style="margin-bottom: 1rem;">🚀 AI-Powered Innovation Platform</h3>
+                <p>Join thousands of teams transforming their hackathon projects into successful products</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features for Innovators</h2>
+                <p>Everything you need to take your ideas from concept to reality</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Idea Generation</h3>
+                    <p>Leverage advanced AI to brainstorm, refine, and expand your initial concepts with intelligent suggestions and market insights.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">👥</div>
+                    <h3>Real-time Collaboration</h3>
+                    <p>Work seamlessly with your team members with live editing, comments, and version control for all your projects.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Gamified Progress</h3>
+                    <p>Earn points, unlock achievements, and climb leaderboards as you hit milestones and complete innovation challenges.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="demo-container">
+                <div class="demo-content">
+                    <h2>See How InnoSphere Works</h2>
+                    <p>Experience the power of AI-assisted innovation with our intelligent platform that helps you at every stage of your journey.</p>
+                    <ul class="demo-features">
+                        <li>AI-powered brainstorming and idea refinement</li>
+                        <li>Real-time collaborative workspace</li>
+                        <li>Progress tracking and milestone celebration</li>
+                        <li>Integration with popular development tools</li>
+                    </ul>
+                    <button class="btn btn-primary">Try It Free</button>
+                </div>
+                <div class="demo-interface">
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            AI Innovation Assistant
+                        </div>
+                        <div class="chat-messages">
+                            <div class="message ai">
+                                <strong>AI Assistant:</strong> I've analyzed your "Sustainable Food Delivery" concept. Have you considered integrating with local farms for hyper-local sourcing?
+                            </div>
+                            <div class="message user">
+                                <strong>You:</strong> That's a great idea! How would we handle logistics?
+                            </div>
+                            <div class="message ai">
+                                <strong>AI Assistant:</strong> I suggest a hub-and-spoke model with neighborhood pickup points to reduce carbon footprint by 40%.
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" placeholder="Ask the AI assistant...">
+                            <button>Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gamification Section -->
+    <section class="gamification" id="gamification">
+        <div class="container">
+            <div class="section-title">
+                <h2>Innovation Leaderboard</h2>
+                <p>See who's leading the innovation race this month</p>
+            </div>
+            <div class="leaderboard">
+                <div class="leaderboard-header">
+                    <h3>Top Innovators</h3>
+                    <span style="color: var(--gray); font-size: 0.9rem;">This Month</span>
+                </div>
+                <ul class="leaderboard-list">
+                    <li class="leaderboard-item">
+                        <div class="rank">1</div>
+                        <div class="user-info">
+                            <div class="user-name">Sarah Chen</div>
+                            <div class="user-score">Blockchain Team</div>
+                        </div>
+                        <div class="points">2,450 pts</div>
+                    </li>
+                    <li class="leaderboard-item">
+                        <div class="rank">2</div>
+                        <div class="user-info">
+                            <div class="user-name">Marcus Rodriguez</div>
+                            <div class="user-score">AI Research Group</div>
+                        </div>
+                        <div class="points">2,120 pts</div>
+                    </li>
+                    <li class="leaderboard-item">
+                        <div class="rank">3</div>
+                        <div class="user-info">
+                            <div class="user-name">Tech Innovators Inc</div>
+                            <div class="user-score">Startup Accelerator</div>
+                        </div>
+                        <div class="points">1,980 pts</div>
+                    </li>
+                    <li class="leaderboard-item">
+                        <div class="rank">4</div>
+                        <div class="user-info">
+                            <div class="user-name">University Team Alpha</div>
+                            <div class="user-score">Student Innovation</div>
+                        </div>
+                        <div class="points">1,750 pts</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Ideas?</h2>
+            <p>Join thousands of innovators already using InnoSphere to bring their hackathon projects to life.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button class="btn hero-btn btn-secondary" style="background: white; color: var(--primary);">Start Free Trial</button>
+                <button class="btn hero-btn btn-outline" style="border-color: white; color: white;">Schedule Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>InnoSphere</h4>
+                    <p style="color: #9ca3af; margin-bottom: 1rem;">Accelerating innovation through AI-powered collaboration.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: #9ca3af;">Twitter</a>
+                        <a href="#" style="color: #9ca3af;">LinkedIn</a>
+                        <a href="#" style="color: #9ca3af;">GitHub</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Use Cases</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 InnoSphere. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in-up elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            fadeElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Simple chat simulation
+            const chatInput = document.querySelector('.chat-input input');
+            const chatButton = document.querySelector('.chat-input button');
+            const chatMessages = document.querySelector('.chat-messages');
+
+            const aiResponses = [
+                "Interesting idea! Have you considered the scalability aspects?",
+                "Based on market research, this could address a $2B market opportunity.",
+                "I can help you create a project roadmap for this concept.",
+                "Let me generate some user stories for your MVP...",
+                "Here are three potential technical architectures to consider:"
+            ];
+
+            chatButton.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Add user message
+                    const userMessage = document.createElement('div');
+                    userMessage.className = 'message user';
+                    userMessage.innerHTML = `<strong>You:</strong> ${message}`;
+                    chatMessages.appendChild(userMessage);
+
+                    // Clear input
+                    chatInput.value = '';
+
+                    // Simulate AI response after delay
+                    setTimeout(() => {
+                        const aiMessage = document.createElement('div');
+                        aiMessage.className = 'message ai';
+                        const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                        aiMessage.innerHTML = `<strong>AI Assistant:</strong> ${randomResponse}`;
+                        chatMessages.appendChild(aiMessage);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 1000);
+
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
